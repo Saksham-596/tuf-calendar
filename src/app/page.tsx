@@ -30,74 +30,74 @@ const MONTH_THEMES = [
 
 const THEME_CLASSES = {
   blue: {
-    bg: "bg-blue-500",
-    light: "bg-blue-100",
+    bg: "bg-blue-400/90",
+    light: "bg-blue-200",
     hover: "hover:bg-blue-50",
     ring: "ring-blue-400/40"
   },
   purple: {
-    bg: "bg-purple-500",
-    light: "bg-purple-100",
+    bg: "bg-purple-400/90",
+    light: "bg-purple-200",
     hover: "hover:bg-purple-50",
     ring: "ring-purple-400/40"
   },
   green: {
-    bg: "bg-green-500",
-    light: "bg-green-100",
+    bg: "bg-green-400/90",
+    light: "bg-green-200",
     hover: "hover:bg-green-50",
     ring: "ring-green-400/40"
   },
   pink: {
-    bg: "bg-pink-500",
-    light: "bg-pink-100",
+    bg: "bg-pink-400/90",
+    light: "bg-pink-200",
     hover: "hover:bg-pink-50",
     ring: "ring-pink-400/40"
   },
   emerald: {
-    bg: "bg-emerald-500",
-    light: "bg-emerald-100",
+    bg: "bg-emerald-400/90",
+    light: "bg-emerald-200",
     hover: "hover:bg-emerald-50",
     ring: "ring-emerald-400/40"
   },
   cyan: {
-    bg: "bg-cyan-500",
-    light: "bg-cyan-100",
+    bg: "bg-cyan-400/90",
+    light: "bg-cyan-200",
     hover: "hover:bg-cyan-50",
     ring: "ring-cyan-400/40"
   },
   indigo: {
-    bg: "bg-indigo-500",
-    light: "bg-indigo-100",
+    bg: "bg-indigo-400/90",
+    light: "bg-indigo-200",
     hover: "hover:bg-indigo-50",
     ring: "ring-indigo-400/40"
   },
   yellow: {
-    bg: "bg-yellow-500",
-    light: "bg-yellow-100",
+    bg: "bg-yellow-400/90",
+    light: "bg-yellow-200",
     hover: "hover:bg-yellow-50",
     ring: "ring-yellow-400/40"
   },
   orange: {
-    bg: "bg-orange-500",
-    light: "bg-orange-100",
+    bg: "bg-orange-400/90",
+    light: "bg-orange-200",
     hover: "hover:bg-orange-50",
     ring: "ring-orange-400/40"
   },
   red: {
-    bg: "bg-red-500",
-    light: "bg-red-100",
+    bg: "bg-red-400/90",
+    light: "bg-red-200",
     hover: "hover:bg-red-50",
     ring: "ring-red-400/40"
   },
   zinc: {
-    bg: "bg-zinc-500",
-    light: "bg-zinc-200",
+    bg: "bg-zinc-400/90",
+    light: "bg-zinc-300",
     hover: "hover:bg-zinc-100",
     ring: "ring-zinc-400/40"
   },
   rose: {
-    bg: "bg-rose-500",
-    light: "bg-rose-100",
+    bg: "bg-rose-400/90",
+    light: "bg-rose-200",
     hover: "hover:bg-rose-50",
     ring: "ring-rose-400/40"
   }
@@ -179,7 +179,7 @@ export default function CalendarApp() {
 
   const getDayClasses = (day: Date) => {
     let base =
-      "relative h-8 w-8 md:h-10 md:w-10 flex items-center justify-center text-xs md:text-sm font-medium cursor-pointer transition-all duration-150";
+      "relative h-8 w-8 md:h-10 md:w-10 flex items-center justify-center text-xs md:text-sm font-medium transition-all duration-150 " + (isDragging ? "cursor-grabbing" : "cursor-pointer");
 
     const isStart = startDate && isSameDay(day, startDate);
     const isEnd = endDate && isSameDay(day, endDate);
@@ -191,13 +191,13 @@ export default function CalendarApp() {
       return base + ` ${t.bg} text-white rounded-full shadow-lg`;
 
     if (isStart)
-      return base + ` ${t.bg} text-white rounded-l-full shadow-lg`;
+      return base + ` ${isDragging ? t.light : t.bg} text-${isDragging ? 'zinc-900' : 'white'} rounded-l-full shadow-lg`;
 
     if (isEnd)
-      return base + ` ${t.bg} text-white rounded-r-full shadow-lg`;
+      return base + ` ${isDragging ? t.light : t.bg} text-${isDragging ? 'zinc-900' : 'white'} rounded-r-full shadow-lg`;
 
     if (isBetween)
-      return base + ` ${t.light} text-zinc-900 shadow-inner transition-all duration-100 ease-out scale-[1.02]`;
+      return base + ` ${isDragging ? t.light : t.bg} text-zinc-900 shadow-inner transition-all duration-100 ease-out scale-[1.02]`;
 
     if (!isCurrentMonth)
       return base + " text-zinc-400 opacity-70";
